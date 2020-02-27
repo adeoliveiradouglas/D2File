@@ -13,7 +13,7 @@ public class Finder {
 	private File arquivo; //arquivo sendo lido 
 	private File backup; //caminho do diretório para backup desse arquivo
 	private int nivel; //quantas pastas já foram acessadas na hierarquia 
-	private double modificado = 1561985986000.0; //Data em millis da classificação de arquivos recentes ou antigos
+	private double modificado = 1561985986000.0; // 01/07/2019 Data em millis da classificação de arquivos recentes ou antigos
 	
 	Finder(String caminho) {
 		arquivo = new File(caminho);
@@ -52,12 +52,8 @@ public class Finder {
 		}
 		pastaBackup = arquivo.getAbsolutePath().substring(0,posicaoAntes) + "\\backup"+ arquivo.getAbsolutePath().substring(posicaoDepois);
 
-		
-//		Log
-//		System.out.println("");
-//		System.out.print("backp: "+pastaBackup);
 		backup = new File(pastaBackup);
-//		System.out.print(arquivosDaPasta.length);
+
 		
 		if (arquivosDaPasta != null)
 			for (File f : arquivosDaPasta) {
@@ -76,11 +72,10 @@ public class Finder {
 	}
 
 	private void arquivo(File f) {
-//		Quando o File é arquivo, verifica se a última modificação é mais velha ou recente que o controle
-//		Caso seja mais velha, é criada uma pasta para o backup desse arquivo
+//		Quando o File é arquivo, verifica se a última modificação é mais antiga ou recente que o controle
+//		Caso seja mais antiga, é criada uma pasta para o backup desse arquivo
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		 
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");		 
 		System.out.print(" " + sdf.format(f.lastModified()));
 		
 		if(f.lastModified() < modificado) {
@@ -92,8 +87,7 @@ public class Finder {
 			File copia = new File(this.backup + "\\" + f.getName());
 			
 			System.out.print(" -> Copia ");
-//			System.out.println(" -> Copia: " + this.backup+"\\"+f.getName());
-			
+
 			try {
 				copiar(f, copia);
 			} catch (IOException e) {
@@ -103,6 +97,7 @@ public class Finder {
 			
 //			Faz a cópia da data de modificação para o arquivo copiado
 			Date dataModificado = null;
+
 			try {
 				dataModificado = sdf.parse(sdf.format(f.lastModified()));
 			} catch (ParseException e) {

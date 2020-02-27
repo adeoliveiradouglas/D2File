@@ -109,7 +109,7 @@ public class Finder {
 
             
 //          Deleta o arquivo da pasta de origem
-//			f.delete();
+			f.delete();
 		} else
 			System.out.print(" Recente");
 	}
